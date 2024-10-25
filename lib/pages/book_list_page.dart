@@ -3,9 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:hw4/models/book.dart';
 import 'package:hw4/navigation/router.dart';
 
-class ByTitlePage extends StatelessWidget {
-  const ByTitlePage({required this.books, super.key});
+class BookListPage extends StatelessWidget {
+  const BookListPage({required this.books, required this.title, super.key});
   final List<Book> books;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +25,13 @@ class ByTitlePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(20.0),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Sorted by Title',
-                style: TextStyle(
+                title,
+                style: const TextStyle(
                   fontSize: 30, // Adjust font size as needed
                 ),
               ),

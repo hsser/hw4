@@ -70,36 +70,71 @@ GoRouter router(AuthenticationBloc authenticationBloc) {
               GoRoute(
                   path: 'byAuthor',
                   name: RouteName.byAuthor,
-                  builder: (BuildContext context, GoRouterState state) {
+                  pageBuilder: (BuildContext context, GoRouterState state) {
                     sortBooksByAuthor(books);
-                    return ByAuthorPage(books: books);
+                    return CustomTransitionPage(
+                      child:
+                          BookListPage(books: books, title: 'Sorted by Author'),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      },
+                    );
                   },
                   routes: [
                     GoRoute(
                       path: 'detail',
                       name: RouteName.byAuthorDetail,
                       parentNavigatorKey: rootNavigatorKey,
-                      builder: (BuildContext context, GoRouterState state) {
-                        final book = state.extra as Book;
-                        return BookDetailPage(book: book);
+                      pageBuilder: (BuildContext context, GoRouterState state) {
+                        return CustomTransitionPage(
+                          child: BookDetailPage(book: state.extra as Book),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            );
+                          },
+                        );
                       },
                     ),
                   ]),
               GoRoute(
                 path: 'byTitle',
                 name: RouteName.byTitle,
-                builder: (BuildContext context, GoRouterState state) {
+                pageBuilder: (BuildContext context, GoRouterState state) {
                   sortBooksByTitle(books);
-                  return ByTitlePage(books: books);
+                  return CustomTransitionPage(
+                    child: BookListPage(books: books, title: 'Sorted by Title'),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                  );
                 },
                 routes: [
                   GoRoute(
                     path: 'detail',
                     name: RouteName.byTitleDetail,
                     parentNavigatorKey: rootNavigatorKey,
-                    builder: (BuildContext context, GoRouterState state) {
-                      final book = state.extra as Book;
-                      return BookDetailPage(book: book);
+                    pageBuilder: (BuildContext context, GoRouterState state) {
+                      return CustomTransitionPage(
+                        child: BookDetailPage(book: state.extra as Book),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          );
+                        },
+                      );
                     },
                   )
                 ],
@@ -107,8 +142,17 @@ GoRouter router(AuthenticationBloc authenticationBloc) {
               GoRoute(
                 path: 'profile',
                 name: RouteName.profile,
-                builder: (BuildContext context, GoRouterState state) {
-                  return const ProfilePage();
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  return CustomTransitionPage(
+                    child: const ProfilePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                  );
                 },
               ),
             ],
